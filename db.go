@@ -85,9 +85,9 @@ func insertBook(b Book) int64 {
 	defer db.Close()
 	checkErr(err)
 	query, err := db.Prepare(`INSERT books SET 
-		ozon_id=?, description=?, Title=?, year=?, lang_id=?`)
+		ozon_id=?, description=?, Title=?, year=?, lang_id=?, izd_id=?, series_id=?`)
 	checkErr(err)
-	res, err := query.Exec(b.Ozon_Id, b.Description, b.Title, b.Year, b.Lang_id)
+	res, err := query.Exec(b.Ozon_Id, b.Description, b.Title, b.Year, b.Lang_id, b.Izd_Id, b.Series_Id)
 	checkErr(err)
 	id, err := res.LastInsertId()
 	checkErr(err)
