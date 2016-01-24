@@ -9,7 +9,22 @@ import (
 var id string
 var books Books
 
-func getBookInfoById(id string) {
+//func findBook(bookId int64) int64 {
+//	bookId int64
+//	db, err := sql.Open("mysql", dbuser+":"+dbpass+"@tcp(localhost:3306)/"+dbname+"?charset=utf8")
+//	defer db.Close()
+//	checkErr(err)
+//	rows, err := db.Query(`SELECT id from books where id= ` + id)
+//	checkErr(err)
+
+//	for rows.Next() {
+//		err = rows.Scan(&bookId)
+//		checkErr(err)
+//	}
+//	return bookId
+//}
+
+func getBookInfoById(id string) Book {
 	var b Book
 	db, err := sql.Open("mysql", dbuser+":"+dbpass+"@tcp(localhost:3306)/"+dbname+"?charset=utf8")
 	defer db.Close()
@@ -34,16 +49,15 @@ from
 			series s
 		on
 			b.series_id=s.id
-where b.id= ` + id)
+where b.id=` + id)
 	checkErr(err)
 
 	for rows.Next() {
-
 		err = rows.Scan(&b.Id, &b.Ozon_Id, &b.Title, &b.Year, &b.Description,
-			&b.Lang_id, b.Izd_Id, b.Series_Id, b.Publisher, b.Language, b.Series)
+			&b.Lang_id, &b.Izd_Id, &b.Series_Id, &b.Publisher, &b.Language, &b.Series)
 		checkErr(err)
-		books = append(books, b)
 	}
+	return b
 }
 
 func getBooksList() {

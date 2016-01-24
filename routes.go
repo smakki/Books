@@ -13,28 +13,28 @@ type Routes []Route
 
 var routes = Routes{
 	Route{
-		"Index",
+		"ApiIndex",
 		"GET",
 		"/api/",
 		Api_Index,
 	},
 
 	Route{
-		"BookIndex",
+		"ApiBookIndex",
 		"GET",
 		"/api/books",
 		Api_BookIndex,
 	},
 	Route{
-		"BookCreate",
+		"ApiBookCreate",
 		"POST",
 		"/api/books",
 		Api_BookCreate,
 	},
-	//	Route{
-	//		"BookShow",
-	//		"GET",
-	//		"/books/{bookId}",
-	//		BookShow,
-	//	},
+	Route{
+		"ApiBookShow",
+		"GET",
+		"/api/books/{bookId}",
+		Api_BookShow,
+	},
 }

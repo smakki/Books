@@ -8,7 +8,7 @@ import (
 	"net/http"
 	_ "strconv"
 
-	_ "github.com/gorilla/mux"
+	"github.com/gorilla/mux"
 )
 
 func Api_Index(w http.ResponseWriter, r *http.Request) {
@@ -25,31 +25,31 @@ func Api_BookIndex(w http.ResponseWriter, r *http.Request) {
 	books = nil
 }
 
-//func BookShow(w http.ResponseWriter, r *http.Request) {
-//	vars := mux.Vars(r)
-//	var bookId int
-//	var err error
-//	if bookId, err = strconv.Atoi(vars["bookId"]); err != nil {
-//		panic(err)
-//	}
-//	todo := RepoFindTodo(todoId)
-//	if todo.Id > 0 {
-//		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-//		w.WriteHeader(http.StatusOK)
-//		if err := json.NewEncoder(w).Encode(todo); err != nil {
-//			panic(err)
-//		}
-//		return
-//	}
+func Api_BookShow(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	//	var bookId int
+	//	var err error
+	//	if bookId, err = strconv.Atoi(vars["bookId"]); err != nil {
+	//		panic(err)
+	//	}
+	book := getBookInfoById(vars["bookId"])
+	if book.Id > 0 {
+		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+		w.WriteHeader(http.StatusOK)
+		if err := json.NewEncoder(w).Encode(book); err != nil {
+			panic(err)
+		}
+		return
+	}
 
-//	// If we didn't find it, 404
-//	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-//	w.WriteHeader(http.StatusNotFound)
-//	if err := json.NewEncoder(w).Encode(jsonErr{Code: http.StatusNotFound, Text: "Not Found"}); err != nil {
-//		panic(err)
-//	}
+	// If we didn't find it, 404
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusNotFound)
+	if err := json.NewEncoder(w).Encode("Not Found"); err != nil {
+		panic(err)
+	}
 
-//}
+}
 
 /*
 Test with this curl command:
